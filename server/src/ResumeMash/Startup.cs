@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using ResumeMash.Repositories;
+using ResumeMash.Services;
 
 namespace ResumeMash
 {
@@ -31,6 +32,8 @@ namespace ResumeMash
             services.AddDbContext<ResumeMashContext>(options =>
                 options
                     .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+            services.AddScoped<IResumeService, ResumeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
