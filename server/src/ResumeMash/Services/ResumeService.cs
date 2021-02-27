@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ResumeMash.Entities;
 using ResumeMash.Mappers;
 using ResumeMash.Models;
@@ -23,6 +25,11 @@ namespace ResumeMash.Services
             await _dbContext.SaveChangesAsync();
 
             return resume;
+        }
+
+        public async Task<IEnumerable<Resume>> ListResumesAsync()
+        {
+            return await _dbContext.Resumes.ToListAsync();
         }
     }
 }

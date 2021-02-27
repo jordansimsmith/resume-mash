@@ -1,5 +1,7 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ResumeMash.Mappers;
 using ResumeMash.Models;
 using ResumeMash.Services;
 
@@ -19,8 +21,17 @@ namespace ResumeMash.Controllers
         public async Task<JsonResult> CreateResume(ResumeModel resumeModel)
         {
             var resume = await _resumeService.SaveResumeAsync(resumeModel);
+            
+            return new JsonResult(resume.ToResumeModel());
+        }
 
-            return new JsonResult(resume);
+        [HttpGet("/resumes")]
+        public async Task<JsonResult> ListResumes()
+        {
+            var resumes = await _resumeService.ListResumesAsync();
+            var resumeModels = resumes.Select(r => r.ToResumeModel());
+
+            return new JsonResult(resumeModels);
         }
     }
 }
