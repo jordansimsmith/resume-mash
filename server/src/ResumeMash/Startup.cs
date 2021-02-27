@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using ResumeMash.Repositories;
 
 namespace ResumeMash
 {
@@ -24,6 +26,11 @@ namespace ResumeMash
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "ResumeMash", Version = "v1"});
             });
+
+            var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
+            services.AddDbContext<ResumeMashContext>(options =>
+                options
+                    .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +42,11 @@ namespace ResumeMash
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ResumeMash v1"));
             }
+
+            using var scope = app.ApplicationServices.CreateScope();
+            using var context = scope.ServiceProvider.GetService<ResumeMashContext>();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
 
             app.UseRouting();
 
