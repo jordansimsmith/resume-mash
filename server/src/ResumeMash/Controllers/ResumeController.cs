@@ -18,9 +18,10 @@ namespace ResumeMash.Controllers
         }
 
         [HttpPost("/resumes")]
-        public async Task<JsonResult> CreateResume(ResumeModel resumeModel)
+        [Consumes("multipart/form-data")]
+        public async Task<JsonResult> CreateResume([FromForm] ResumeUploadModel resumeUploadModel)
         {
-            var resume = await _resumeService.SaveResumeAsync(resumeModel);
+            var resume = await _resumeService.SaveResumeAsync(resumeUploadModel);
             
             return new JsonResult(resume.ToResumeModel());
         }

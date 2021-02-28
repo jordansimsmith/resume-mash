@@ -12,7 +12,7 @@ namespace ResumeMash.Services
         /// </summary>
         /// <param name="resume"></param>
         /// <returns></returns>
-        Task<Resume> SaveResumeAsync(ResumeModel resume);
+        Task<Resume> SaveResumeAsync(ResumeUploadModel resume);
 
         /// <summary>
         /// Retrieves all the resumes for the current user

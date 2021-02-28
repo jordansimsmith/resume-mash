@@ -7,5 +7,6 @@ namespace ResumeMash.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime DateSubmitted { get; set; }
+        public string ResumeFileKey { get; set; }
     }
 }
