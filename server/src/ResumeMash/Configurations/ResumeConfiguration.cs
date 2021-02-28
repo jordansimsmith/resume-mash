@@ -11,6 +11,7 @@ namespace ResumeMash.Configurations
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Name).IsRequired();
             builder.Property(o => o.DateSubmitted).IsRequired();
+            builder.Property(o => o.UserId).IsRequired();
         }
     }
 }

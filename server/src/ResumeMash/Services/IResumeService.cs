@@ -11,13 +11,15 @@ namespace ResumeMash.Services
         /// Persists the provided resume information
         /// </summary>
         /// <param name="resume"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        Task<Resume> SaveResumeAsync(ResumeUploadModel resume);
+        Task<Resume> SaveResumeAsync(ResumeUploadModel resume, string userId);
 
         /// <summary>
         /// Retrieves all the resumes for the current user
         /// </summary>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        Task<IEnumerable<Resume>> ListResumesAsync();
+        Task<IEnumerable<Resume>> ListResumesAsync(string userId);
     }
 }

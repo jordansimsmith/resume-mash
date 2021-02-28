@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +27,7 @@ namespace ResumeMash.Controllers
         [Authorize]
         public async Task<JsonResult> CreateResume([FromForm] ResumeUploadModel resumeUploadModel)
         {
-            var resume = await _resumeService.SaveResumeAsync(resumeUploadModel);
+            var resume = await _resumeService.SaveResumeAsync(resumeUploadModel, User.Identity.Name);
             var resumeModel = resume.ToResumeModel(_resumeStorageService.GeneratePreSignedUrl(resume.ResumeFileKey));
 
             return new JsonResult(resumeModel);
@@ -35,7 +37,7 @@ namespace ResumeMash.Controllers
         [Authorize]
         public async Task<JsonResult> ListResumes()
         {
-            var resumes = await _resumeService.ListResumesAsync();
+            var resumes = await _resumeService.ListResumesAsync(User.Identity.Name);
             var resumeModels = resumes.Select(r =>
                 r.ToResumeModel(_resumeStorageService.GeneratePreSignedUrl(r.ResumeFileKey)));
 

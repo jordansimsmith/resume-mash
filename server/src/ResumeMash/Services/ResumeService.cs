@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ResumeMash.Entities;
@@ -20,7 +21,7 @@ namespace ResumeMash.Services
             _resumeStorageService = resumeStorageService;
         }
 
-        public async Task<Resume> SaveResumeAsync(ResumeUploadModel resumeUploadModel)
+        public async Task<Resume> SaveResumeAsync(ResumeUploadModel resumeUploadModel, string userId)
         {
             // approximately 1 MB
             if (resumeUploadModel.ResumeFile.Length > 1_000_000)
@@ -45,6 +46,7 @@ namespace ResumeMash.Services
                 Name = resumeUploadModel.Name,
                 DateSubmitted = DateTime.Now,
                 ResumeFileKey = resumeKey,
+                UserId = userId,
             };
 
             await _dbContext.Resumes.AddAsync(resume);
@@ -53,9 +55,12 @@ namespace ResumeMash.Services
             return resume;
         }
 
-        public async Task<IEnumerable<Resume>> ListResumesAsync()
+        public async Task<IEnumerable<Resume>> ListResumesAsync(string userId)
         {
-            return await _dbContext.Resumes.ToListAsync();
+            return await _dbContext.Resumes
+                .Where(r => r.UserId == userId)
+                .OrderByDescending(r => r.DateSubmitted)
+                .ToListAsync();
         }
     }
 }
