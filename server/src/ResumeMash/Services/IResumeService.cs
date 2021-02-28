@@ -21,5 +21,13 @@ namespace ResumeMash.Services
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<IEnumerable<Resume>> ListResumesAsync(string userId);
+
+        /// <summary>
+        /// Gets a resume by id
+        /// </summary>
+        /// <param name="resumeId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<Resume> GetResumeAsync(int resumeId, string userId);
     }
 }

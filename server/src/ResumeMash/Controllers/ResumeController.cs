@@ -41,5 +41,15 @@ namespace ResumeMash.Controllers
 
             return new JsonResult(resumeModels);
         }
+
+        [HttpGet("/resumes/{resumeId:int}")]
+        [Authorize]
+        public async Task<JsonResult> GetResume(int resumeId)
+        {
+            var resume = await _resumeService.GetResumeAsync(resumeId, User.Identity.Name);
+            var resumeModel = resume.ToResumeModel(_resumeStorageService.GeneratePreSignedUrl(resume.ResumeFileKey));
+
+            return new JsonResult(resumeModel);
+        }
     }
 }

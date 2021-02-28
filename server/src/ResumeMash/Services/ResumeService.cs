@@ -62,5 +62,10 @@ namespace ResumeMash.Services
                 .OrderByDescending(r => r.DateSubmitted)
                 .ToListAsync();
         }
+
+        public Task<Resume> GetResumeAsync(int resumeId, string userId)
+        {
+            return _dbContext.Resumes.FirstAsync(r => r.Id == resumeId && r.UserId == userId);
+        }
     }
 }
