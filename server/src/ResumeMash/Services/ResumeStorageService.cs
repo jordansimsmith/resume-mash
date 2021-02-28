@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Amazon;
@@ -33,6 +34,17 @@ namespace ResumeMash.Services
                 ContentType = "application/pdf"
             };
             await _s3Client.PutObjectAsync(putObjectRequest);
+        }
+
+        public string GeneratePreSignedUrl(string resumeKey)
+        {
+            var getPreSignedUrlRequest = new GetPreSignedUrlRequest
+            {
+                BucketName = _bucketName,
+                Key = resumeKey,
+                Expires = DateTime.Now.AddDays(1)
+            };
+            return _s3Client.GetPreSignedURL(getPreSignedUrlRequest);
         }
     }
 }

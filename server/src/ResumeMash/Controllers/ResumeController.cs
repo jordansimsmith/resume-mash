@@ -8,13 +8,15 @@ using ResumeMash.Services;
 namespace ResumeMash.Controllers
 {
     [ApiController]
-    public class ResumeController: ControllerBase
+    public class ResumeController : ControllerBase
     {
         private readonly IResumeService _resumeService;
+        private readonly IResumeStorageService _resumeStorageService;
 
-        public ResumeController(IResumeService resumeService)
+        public ResumeController(IResumeService resumeService, IResumeStorageService resumeStorageService)
         {
             _resumeService = resumeService;
+            _resumeStorageService = resumeStorageService;
         }
 
         [HttpPost("/resumes")]
@@ -22,15 +24,17 @@ namespace ResumeMash.Controllers
         public async Task<JsonResult> CreateResume([FromForm] ResumeUploadModel resumeUploadModel)
         {
             var resume = await _resumeService.SaveResumeAsync(resumeUploadModel);
-            
-            return new JsonResult(resume.ToResumeModel());
+            var resumeModel = resume.ToResumeModel(_resumeStorageService.GeneratePreSignedUrl(resume.ResumeFileKey));
+
+            return new JsonResult(resumeModel);
         }
 
         [HttpGet("/resumes")]
         public async Task<JsonResult> ListResumes()
         {
             var resumes = await _resumeService.ListResumesAsync();
-            var resumeModels = resumes.Select(r => r.ToResumeModel());
+            var resumeModels = resumes.Select(r =>
+                r.ToResumeModel(_resumeStorageService.GeneratePreSignedUrl(r.ResumeFileKey)));
 
             return new JsonResult(resumeModels);
         }

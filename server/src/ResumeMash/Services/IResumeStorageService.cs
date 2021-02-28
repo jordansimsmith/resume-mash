@@ -12,5 +12,12 @@ namespace ResumeMash.Services
         /// <param name="resumeKey"></param>
         /// <returns></returns>
         Task UploadResumeAsync(Stream resumeStream, string resumeKey);
+
+        /// <summary>
+        /// Generates a preSigned url for the supplied resume
+        /// </summary>
+        /// <param name="resumeKey"></param>
+        /// <returns></returns>
+        string GeneratePreSignedUrl(string resumeKey);
     }
 }
