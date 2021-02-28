@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ResumeMash.Models;
 using ResumeMash.Repositories;
 using ResumeMash.Services;
 
@@ -60,6 +61,7 @@ namespace ResumeMash
             services.AddScoped<IResumeService, ResumeService>();
             services.AddScoped<IResumeStorageService, ResumeStorageService>();
             services.AddScoped<IResultService, ResultService>();
+            services.AddScoped<IMashService, MashService>();
 
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -87,8 +89,7 @@ namespace ResumeMash
 
             using var scope = app.ApplicationServices.CreateScope();
             using var context = scope.ServiceProvider.GetService<ResumeMashContext>();
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+            context.Database.Migrate();
 
             app.UseRouting();
 
