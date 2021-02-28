@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
@@ -45,6 +47,25 @@ namespace ResumeMash.Services
                     _resumeStorageService.GeneratePreSignedUrl(savedResult.Winner.ResumeFileKey)),
                 DateSubmitted = savedResult.DateSubmitted
             };
+        }
+
+        public async Task<IEnumerable<ResultModel>> ListResultsAsync(int resumeId)
+        {
+            var results = await _dbContext.Results
+                .Include(r => r.Winner)
+                .Include(r => r.Loser)
+                .Where(r => r.WinnerId == resumeId || r.LoserId == resumeId)
+                .ToListAsync();
+
+            return results.Select(r => new ResultModel
+            {
+                Id = r.Id,
+                Loser = r.Loser.ToResumeModel(
+                    _resumeStorageService.GeneratePreSignedUrl(r.Loser.ResumeFileKey)),
+                Winner = r.Winner.ToResumeModel(
+                    _resumeStorageService.GeneratePreSignedUrl(r.Winner.ResumeFileKey)),
+                DateSubmitted = r.DateSubmitted
+            });
         }
     }
 }

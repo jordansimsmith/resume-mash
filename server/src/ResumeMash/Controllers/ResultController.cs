@@ -24,5 +24,14 @@ namespace ResumeMash.Controllers
 
             return new JsonResult(result);
         }
+
+        [HttpGet("resumes/{resumeId:int}/results")]
+        [Authorize]
+        public async Task<JsonResult> ListResultsForResume(int resumeId)
+        {
+            var results = await _resultService.ListResultsAsync(resumeId);
+
+            return new JsonResult(results);
+        }
     }
 }

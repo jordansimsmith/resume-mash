@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ResumeMash.Models;
 
@@ -12,5 +13,12 @@ namespace ResumeMash.Services
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<ResultModel> SaveResultAsync(ResultCreateModel resultCreateModel, string userId);
+
+        /// <summary>
+        /// Returns the results history for a resume
+        /// </summary>
+        /// <param name="resumeId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ResultModel>> ListResultsAsync(int resumeId);
     }
 }
