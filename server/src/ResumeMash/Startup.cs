@@ -53,6 +53,17 @@ namespace ResumeMash
                 });
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithExposedHeaders("location")
+                );
+            });
+
             var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<ResumeMashContext>(options =>
                 options
@@ -90,6 +101,8 @@ namespace ResumeMash
             using var scope = app.ApplicationServices.CreateScope();
             using var context = scope.ServiceProvider.GetService<ResumeMashContext>();
             context.Database.Migrate();
+
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
