@@ -11,10 +11,12 @@ namespace ResumeMash.Repositories
         }
 
         public DbSet<Resume> Resumes { get; set; }
+        public DbSet<Result> Results { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ResumeConfiguration());
+            modelBuilder.ApplyConfiguration(new ResultConfiguration());
         }
     }
 }

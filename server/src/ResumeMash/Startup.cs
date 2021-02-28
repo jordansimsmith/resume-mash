@@ -59,6 +59,7 @@ namespace ResumeMash
 
             services.AddScoped<IResumeService, ResumeService>();
             services.AddScoped<IResumeStorageService, ResumeStorageService>();
+            services.AddScoped<IResultService, ResultService>();
 
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
