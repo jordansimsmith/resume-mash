@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ResumeMash.Mappers;
 using ResumeMash.Models;
@@ -21,6 +22,7 @@ namespace ResumeMash.Controllers
 
         [HttpPost("/resumes")]
         [Consumes("multipart/form-data")]
+        [Authorize]
         public async Task<JsonResult> CreateResume([FromForm] ResumeUploadModel resumeUploadModel)
         {
             var resume = await _resumeService.SaveResumeAsync(resumeUploadModel);
@@ -30,6 +32,7 @@ namespace ResumeMash.Controllers
         }
 
         [HttpGet("/resumes")]
+        [Authorize]
         public async Task<JsonResult> ListResumes()
         {
             var resumes = await _resumeService.ListResumesAsync();
