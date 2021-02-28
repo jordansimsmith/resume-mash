@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ResumeMash.Mappers;
 using ResumeMash.Models;
 using ResumeMash.Services;
 
@@ -19,11 +18,11 @@ namespace ResumeMash.Controllers
 
         [HttpPost("/results")]
         [Authorize]
-        public async Task<JsonResult> CreateResult(ResultModel resultModel)
+        public async Task<JsonResult> CreateResult(ResultCreateModel resultCreateModel)
         {
-            var result = await _resultService.SaveResultAsync(resultModel, User.Identity.Name);
+            var result = await _resultService.SaveResultAsync(resultCreateModel, User.Identity.Name);
 
-            return new JsonResult(result.ToResultModel());
+            return new JsonResult(result);
         }
     }
 }

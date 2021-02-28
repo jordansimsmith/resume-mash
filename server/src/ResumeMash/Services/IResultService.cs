@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using ResumeMash.Entities;
 using ResumeMash.Models;
 
 namespace ResumeMash.Services
@@ -9,9 +8,9 @@ namespace ResumeMash.Services
         /// <summary>
         /// Persists a result between two resumes, submitted by a user
         /// </summary>
-        /// <param name="resultModel"></param>
+        /// <param name="resultCreateModel"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<Result> SaveResultAsync(ResultModel resultModel, string userId);
+        Task<ResultModel> SaveResultAsync(ResultCreateModel resultCreateModel, string userId);
     }
 }

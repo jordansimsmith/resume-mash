@@ -6,25 +6,14 @@ namespace ResumeMash.Mappers
 {
     public static class ResultMapper
     {
-        public static Result ToResult(this ResultModel resultModel, DateTime dateSubmitted, string userId)
+        public static Result ToResult(this ResultCreateModel resultCreateModel, DateTime dateSubmitted, string userId)
         {
             return new()
             {
-                Id = resultModel.Id ?? 0,
-                WinnerId = resultModel.WinnerId,
-                LoserId = resultModel.LoserId,
+                WinnerId = resultCreateModel.WinnerId,
+                LoserId = resultCreateModel.LoserId,
                 DateSubmitted = dateSubmitted,
                 UserId = userId,
-            };
-        }
-
-        public static ResultModel ToResultModel(this Result result)
-        {
-            return new()
-            {
-                Id = result.Id,
-                WinnerId = result.WinnerId,
-                LoserId = result.LoserId,
             };
         }
     }
