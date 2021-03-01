@@ -1,6 +1,11 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import { Resume } from '../types/types';
+
+const PDFViewer = dynamic(() => import('../components/PDFViewer'), {
+  ssr: false,
+});
 
 interface IndexPageProps {
   firstResume: Resume;
@@ -18,9 +23,13 @@ const IndexPage: NextPage<IndexPageProps> = ({ firstResume, secondResume }) => {
       <main>
         <h1>Resume Mash</h1>
 
-        <pre>{JSON.stringify(firstResume, null, 2)}</pre>
+        <div>
+          <PDFViewer resume={firstResume} />
+        </div>
 
-        <pre>{JSON.stringify(secondResume, null, 2)}</pre>
+        <div>
+          <PDFViewer resume={secondResume} />
+        </div>
       </main>
     </div>
   );
