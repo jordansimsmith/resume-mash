@@ -9,16 +9,16 @@ interface PDFViewerProps {
 }
 
 const PDFViewer: React.FC<PDFViewerProps> = ({ resume }) => {
+  // TODO: implement page navigation
   const [numPages, setNumPages] = React.useState<number>(0);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
 
   return (
     <Document
       file={resume.resumeFileUrl}
       onLoadSuccess={(e) => setNumPages(e.numPages)}
     >
-      {Array.from(new Array(numPages), (_el, i) => (
-        <Page key={`${resume.id}-${i}`} pageNumber={i + 1} />
-      ))}
+      <Page pageNumber={currentPage} />
     </Document>
   );
 };

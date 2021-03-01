@@ -1,11 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import dynamic from 'next/dynamic';
 import { Resume } from '../types/types';
-
-const PDFViewer = dynamic(() => import('../components/PDFViewer'), {
-  ssr: false,
-});
+import { ResumeContainer } from '../components/ResumeContainer';
 
 interface IndexPageProps {
   firstResume: Resume;
@@ -20,15 +16,16 @@ const IndexPage: NextPage<IndexPageProps> = ({ firstResume, secondResume }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>Resume Mash</h1>
+      <main className="container mx-auto">
+        <blockquote className="mt-5">
+          <p className="text-xl lg:text-3xl font-semibold ">
+            &quot;Which resume would you pick for an interview?&quot;
+          </p>
+        </blockquote>
 
-        <div>
-          <PDFViewer resume={firstResume} />
-        </div>
-
-        <div>
-          <PDFViewer resume={secondResume} />
+        <div className="grid grid-flow-row xl:grid-flow-col gap-10 m-10">
+          <ResumeContainer resume={firstResume} />
+          <ResumeContainer resume={secondResume} />
         </div>
       </main>
     </div>
