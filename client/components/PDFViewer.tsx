@@ -18,7 +18,13 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ resume }) => {
       file={resume.resumeFileUrl}
       onLoadSuccess={(e) => setNumPages(e.numPages)}
     >
-      <Page pageNumber={currentPage} />
+      <Page
+        pageNumber={currentPage}
+        renderTextLayer={false}
+        renderAnnotationLayer={false}
+        width={1000}
+        renderMode="canvas"
+      />
     </Document>
   );
 };
