@@ -2,7 +2,6 @@ import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { Resume } from '../types/types';
-import { NavBar } from '../components/NavBar';
 
 const PDFViewer = dynamic(() => import('../components/PDFViewer'), {
   ssr: false,
@@ -20,8 +19,6 @@ const IndexPage: NextPage<IndexPageProps> = ({ firstResume, secondResume }) => {
         <title>Resume Mash</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <NavBar />
 
       <main>
         <h1>Resume Mash</h1>
