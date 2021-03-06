@@ -10,14 +10,14 @@ interface IndexPageProps {
 
 const IndexPage: NextPage<IndexPageProps> = ({ firstResume, secondResume }) => {
   return (
-    <div>
+    <div className="bg-gray-100">
       <Head>
         <title>Resume Mash</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="container mx-auto">
-        <blockquote className="mt-5">
+        <blockquote className="pt-5">
           <p className="text-xl lg:text-3xl font-semibold ">
             &quot;Which resume would you pick for an interview?&quot;
           </p>

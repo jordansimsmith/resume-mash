@@ -12,7 +12,7 @@ interface ResumeContainerProps {
 
 export const ResumeContainer: React.FC<ResumeContainerProps> = ({ resume }) => {
   return (
-    <div className="mx-auto border-4 rounded-2xl hover:border-indigo-600 overflow-hidden p-4">
+    <div className="mx-auto border-4 rounded-2xl hover:border-indigo-600 overflow-hidden p-4 bg-white">
       <PDFViewer resume={resume} />
     </div>
   );

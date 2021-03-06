@@ -7,8 +7,10 @@ import '../styles/globals.css';
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <UserProvider>
-      <NavBar />
-      <Component {...pageProps} />
+      <div className="flex flex-col">
+        <NavBar />
+        <Component {...pageProps} />
+      </div>
     </UserProvider>
   );
 };
