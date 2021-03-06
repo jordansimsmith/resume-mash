@@ -2,12 +2,15 @@ import Head from 'next/head';
 import { NextPage } from 'next';
 import { getAccessToken, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/router';
 
 interface NewResumepageProps {
   apiToken: string;
 }
 
 const NewResumePage: NextPage<NewResumepageProps> = ({ apiToken }) => {
+  const router = useRouter();
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -18,7 +21,7 @@ const NewResumePage: NextPage<NewResumepageProps> = ({ apiToken }) => {
       formData.append('Name', values.name);
       formData.append('ResumeFile', values.resumeFile);
 
-      return fetch('http://localhost:5000/resumes', {
+      const res = await fetch('http://localhost:5000/resumes', {
         method: 'POST',
         body: formData,
         headers: new Headers({
@@ -26,6 +29,14 @@ const NewResumePage: NextPage<NewResumepageProps> = ({ apiToken }) => {
           Accept: 'application/json',
         }),
       });
+
+      if (!res.ok) {
+        throw new Error(
+          'An error was encountered when uploading your resume, please try again',
+        );
+      }
+
+      router.push('/');
     },
   });
 
@@ -110,10 +121,11 @@ const NewResumePage: NextPage<NewResumepageProps> = ({ apiToken }) => {
             </div>
 
             <button
+              disabled={formik.isSubmitting}
               type="submit"
               className="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Submit
+              {formik.isSubmitting ? 'Loading' : 'Submit'}
             </button>
           </div>
         </form>

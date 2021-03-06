@@ -10,7 +10,7 @@ interface IndexPageProps {
 
 const IndexPage: NextPage<IndexPageProps> = ({ firstResume, secondResume }) => {
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 flex-grow">
       <Head>
         <title>Resume Mash</title>
         <link rel="icon" href="/favicon.ico" />

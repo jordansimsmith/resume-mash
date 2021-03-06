@@ -20,6 +20,11 @@ export const NavBar: React.FC<NavBarProps> = () => {
         <div>
           <ul className="inline-flex text-white">
             <li>
+              <a className="px-4 font-bold" href="/resumes/new">
+                Upload
+              </a>
+            </li>
+            <li>
               <a className="px-4 font-bold">{user?.name ?? 'Profile'}</a>
             </li>
             <li>
