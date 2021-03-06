@@ -8,5 +8,8 @@ namespace ResumeMash.Models
         public string Name { get; set; }
         public DateTime DateSubmitted { get; set; }
         public string ResumeFileUrl { get; set; }
+
+        public int WinCount { get; set; }
+        public int LossCount { get; set; }
     }
 }

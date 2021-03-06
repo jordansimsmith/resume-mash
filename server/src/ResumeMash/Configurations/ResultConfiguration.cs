@@ -15,11 +15,11 @@ namespace ResumeMash.Configurations
 
             builder
                 .HasOne(o => o.Loser)
-                .WithMany()
+                .WithMany(o => o.Losses)
                 .HasForeignKey(o => o.LoserId);
             builder
                 .HasOne(o => o.Winner)
-                .WithMany()
+                .WithMany(o => o.Wins)
                 .HasForeignKey(o => o.WinnerId);
         }
     }

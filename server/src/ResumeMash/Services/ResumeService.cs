@@ -60,12 +60,19 @@ namespace ResumeMash.Services
             return await _dbContext.Resumes
                 .Where(r => r.UserId == userId)
                 .OrderByDescending(r => r.DateSubmitted)
+                .Include(r => r.Wins)
+                .Include(r => r.Losses)
+                .AsSplitQuery()
                 .ToListAsync();
         }
 
         public Task<Resume> GetResumeAsync(int resumeId, string userId)
         {
-            return _dbContext.Resumes.FirstAsync(r => r.Id == resumeId && r.UserId == userId);
+            return _dbContext.Resumes
+                .Include(r => r.Wins)
+                .Include(r => r.Losses)
+                .AsSplitQuery()
+                .FirstAsync(r => r.Id == resumeId && r.UserId == userId);
         }
     }
 }

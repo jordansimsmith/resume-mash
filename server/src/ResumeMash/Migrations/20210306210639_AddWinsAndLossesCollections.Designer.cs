@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumeMash.Repositories;
 
 namespace ResumeMash.Migrations
 {
     [DbContext(typeof(ResumeMashContext))]
-    partial class ResumeMashContextModelSnapshot : ModelSnapshot
+    [Migration("20210306210639_AddWinsAndLossesCollections")]
+    partial class AddWinsAndLossesCollections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -13,6 +13,8 @@ namespace ResumeMash.Mappers
                 Name = resume.Name,
                 DateSubmitted = resume.DateSubmitted,
                 ResumeFileUrl = resumeFileUrl,
+                WinCount = resume.Wins?.Count ?? 0,
+                LossCount = resume.Losses?.Count ?? 0,
             };
         }
     }

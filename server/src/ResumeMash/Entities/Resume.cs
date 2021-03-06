@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ResumeMash.Entities
 {
@@ -9,5 +10,7 @@ namespace ResumeMash.Entities
         public DateTime DateSubmitted { get; set; }
         public string ResumeFileKey { get; set; }
         public string UserId { get; set; }
+        public ICollection<Result> Wins { get; set; }
+        public ICollection<Result> Losses { get; set; }
     }
 }
