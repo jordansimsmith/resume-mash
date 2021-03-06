@@ -25,7 +25,9 @@ export const NavBar: React.FC<NavBarProps> = () => {
               </a>
             </li>
             <li>
-              <a className="px-4 font-bold">{user?.name ?? 'Profile'}</a>
+              <a className="px-4 font-bold" href="/resumes">
+                {user?.name ?? 'Profile'}
+              </a>
             </li>
             <li>
               {user ? (

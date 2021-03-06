@@ -17,11 +17,9 @@ const IndexPage: NextPage<IndexPageProps> = ({ firstResume, secondResume }) => {
       </Head>
 
       <main className="container mx-auto">
-        <blockquote className="pt-5">
-          <p className="text-xl lg:text-3xl font-semibold ">
-            &quot;Which resume would you pick for an interview?&quot;
-          </p>
-        </blockquote>
+        <h1 className="text-xl lg:text-3xl font-semibold py-4 text-center">
+          &quot;Which resume would you pick for an interview?&quot;
+        </h1>
 
         <div className="grid grid-flow-row xl:grid-flow-col gap-10 m-10">
           <ResumeContainer resume={firstResume} />

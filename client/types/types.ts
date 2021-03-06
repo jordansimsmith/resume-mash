@@ -3,6 +3,8 @@ export interface Resume {
   name: string;
   resumeFileUrl: string;
   dateSubmitted: string;
+  winCount: number;
+  lossCount: number;
 }
 
 export interface Mash {
