@@ -1,8 +1,11 @@
+import { useUser } from '@auth0/nextjs-auth0';
 import React from 'react';
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = () => {
+  const { user } = useUser();
+
   return (
     <nav
       style={{
@@ -17,10 +20,18 @@ export const NavBar: React.FC<NavBarProps> = () => {
         <div>
           <ul className="inline-flex text-white">
             <li>
-              <a className="px-4 font-bold">User</a>
+              <a className="px-4 font-bold">{user?.name ?? 'Profile'}</a>
             </li>
             <li>
-              <a className="px-4 font-bold">Sign Out</a>
+              {user ? (
+                <a className="px-4 font-bold" href="/api/auth/logout">
+                  Sign Out
+                </a>
+              ) : (
+                <a className="px-4 font-bold" href="/api/auth/login">
+                  Sign In
+                </a>
+              )}
             </li>
           </ul>
         </div>
