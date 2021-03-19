@@ -11,3 +11,10 @@ export interface Mash {
   firstResume: Resume;
   secondResume: Resume;
 }
+
+export interface Result {
+  id: number;
+  winner: Resume;
+  loser: Resume;
+  dateSubmitted: string;
+}
