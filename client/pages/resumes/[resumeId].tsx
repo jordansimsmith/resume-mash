@@ -30,7 +30,7 @@ const ResumeDetailPage: NextPage<ResumeDetailPageProps> = ({
         <h2 className="text-lg lg:text-xl py-4 text-center">Result History</h2>
         <div>
           {results.map((r) => (
-            <ResultCard result={r} key={r.id} />
+            <ResultCard result={r} key={r.id} resume={resume} />
           ))}
         </div>
       </main>

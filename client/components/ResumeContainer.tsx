@@ -17,7 +17,7 @@ export const ResumeContainer: React.FC<ResumeContainerProps> = ({
 }) => {
   return (
     <div
-      className="mx-auto border-4 rounded-2xl hover:border-indigo-600 overflow-hidden p-4 bg-white"
+      className="mx-auto border-4 rounded-2xl hover:border-indigo-600 overflow-hidden p-4 bg-white cursor-pointer"
       onClick={onClick}
     >
       <PDFViewer resume={resume} />
