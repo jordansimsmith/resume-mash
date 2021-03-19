@@ -8,11 +8,18 @@ const PDFViewer = dynamic(() => import('../components/PDFViewer'), {
 
 interface ResumeContainerProps {
   resume: Resume;
+  onClick: () => void;
 }
 
-export const ResumeContainer: React.FC<ResumeContainerProps> = ({ resume }) => {
+export const ResumeContainer: React.FC<ResumeContainerProps> = ({
+  resume,
+  onClick,
+}) => {
   return (
-    <div className="mx-auto border-4 rounded-2xl hover:border-indigo-600 overflow-hidden p-4 bg-white">
+    <div
+      className="mx-auto border-4 rounded-2xl hover:border-indigo-600 overflow-hidden p-4 bg-white"
+      onClick={onClick}
+    >
       <PDFViewer resume={resume} />
     </div>
   );
