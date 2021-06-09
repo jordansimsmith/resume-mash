@@ -34,7 +34,6 @@ namespace ResumeMash.Api
                 .AddType<UploadType>()
                 .AddType<ResumeType>()
                 .AddType<ResultType>()
-                .AddTypeExtension<ResumeResolver>()
                 .ModifyRequestOptions(options => { options.IncludeExceptionDetails = _env.IsDevelopment(); });
 
             services.AddHttpContextAccessor();

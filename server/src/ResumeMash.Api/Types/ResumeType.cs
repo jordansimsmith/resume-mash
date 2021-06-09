@@ -9,7 +9,7 @@ namespace ResumeMash.Api.Types
         protected override void Configure(IObjectTypeDescriptor<Resume> descriptor)
         {
             descriptor.Name("Resume");
-            
+
             descriptor
                 .Field(f => f.Id)
                 .Type<NonNullType<IdType>>()
@@ -47,6 +47,11 @@ namespace ResumeMash.Api.Types
                 .Field<ResumeResolver>(f => f.ResumeFileUrl(default, default))
                 .Type<NonNullType<StringType>>()
                 .Name("resumeFileUrl");
+
+            descriptor
+                .Field<ResumeResolver>(f => f.GetResultsForResumeAsync(default, default))
+                .Type<NonNullType<ListType<NonNullType<ResultType>>>>()
+                .Name("results");
         }
     }
 }
