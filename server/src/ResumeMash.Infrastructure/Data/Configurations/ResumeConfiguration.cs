@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ResumeMash.Entities;
+using ResumeMash.Core.Entities;
 
-namespace ResumeMash.Configurations
+namespace ResumeMash.Infrastructure.Data.Configurations
 {
     public class ResumeConfiguration : IEntityTypeConfiguration<Resume>
     {

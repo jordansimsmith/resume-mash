@@ -6,13 +6,14 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Microsoft.Extensions.Configuration;
+using ResumeMash.Services;
 
-namespace ResumeMash.Services
+namespace ResumeMash.Infrastructure.Services
 {
     public class ResumeStorageService : IResumeStorageService
     {
-        private readonly IAmazonS3 _s3Client;
         private readonly string _bucketName;
+        private readonly IAmazonS3 _s3Client;
 
         public ResumeStorageService(IConfiguration configuration)
         {

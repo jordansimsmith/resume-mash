@@ -1,19 +1,37 @@
-using FootballSubscriber.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ResumeMash.Core.Entities;
+using ResumeMash.Core.Interfaces;
+using ResumeMash.Core.Services;
+using ResumeMash.Infrastructure.Data;
+using ResumeMash.Infrastructure.Services;
+using ResumeMash.Services;
 
-namespace FootballSubscriber.Infrastructure
+namespace ResumeMash.Infrastructure
 {
     public static class ServiceExtensions
     {
-        public static void AddDbContext(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddDbContext(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<FootballSubscriberContext>(options => { options.UseSqlServer(connectionString); });
+            services.AddDbContext<ResumeMashContext>(options => { options.UseNpgsql(connectionString); });
+
+            return services;
         }
 
-        public static void AddHangfireContext(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddDbContextPool(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<HangfireContext>(options => { options.UseSqlServer(connectionString); });
+            return services;
+        }
+
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+        {
+            services.AddTransient<IRepository<Resume>, Repository<Resume>>();
+            services.AddTransient<IRepository<Result>, Repository<Result>>();
+            services.AddTransient<IMashService, MashService>();
+
+            services.AddScoped<IResumeStorageService, ResumeStorageService>();
+
+            return services;
         }
     }
 }

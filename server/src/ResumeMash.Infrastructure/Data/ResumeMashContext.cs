@@ -1,8 +1,8 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using ResumeMash.Configurations;
-using ResumeMash.Entities;
+using ResumeMash.Core.Entities;
 
-namespace ResumeMash.Repositories
+namespace ResumeMash.Infrastructure.Data
 {
     public class ResumeMashContext : DbContext
     {
@@ -10,13 +10,13 @@ namespace ResumeMash.Repositories
         {
         }
 
-        public DbSet<Resume> Resumes { get; set; }
-        public DbSet<Result> Results { get; set; }
+        public DbSet<Resume> Resume { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ResumeConfiguration());
-            modelBuilder.ApplyConfiguration(new ResultConfiguration());
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

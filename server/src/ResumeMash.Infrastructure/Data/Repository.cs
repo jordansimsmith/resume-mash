@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using FootballSubscriber.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using ResumeMash.Core.Interfaces;
 
-namespace FootballSubscriber.Infrastructure.Data
+namespace ResumeMash.Infrastructure.Data
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly FootballSubscriberContext _dbContext;
+        private readonly ResumeMashContext _dbContext;
 
-        public Repository(FootballSubscriberContext dbContext)
+        public Repository(ResumeMashContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -40,15 +40,14 @@ namespace FootballSubscriber.Infrastructure.Data
         public async Task<IEnumerable<TEntity>> FindAsync(
             Expression<Func<TEntity, bool>> filter,
             Expression<Func<TEntity, object>> orderBy,
+            bool descending = false,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = _dbContext.Set<TEntity>().Where(filter);
             if (includeProperties != null && includeProperties.Any())
-            {
                 query = includeProperties.Aggregate(query, (current, property) => current.Include(property));
-            }
 
-            query = query.OrderBy(orderBy);
+            query = descending ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
             return await query.ToListAsync();
         }
 
