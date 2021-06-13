@@ -1,7 +1,14 @@
 import { NextPage } from 'next';
+import { withUrqlClient } from 'next-urql';
 import Head from 'next/head';
+import { useQuery } from 'urql';
+import { createUrqlClient } from '../lib/graphql/urqlClient';
 
 const IndexPage: NextPage = () => {
+  useQuery({
+    query: 'query { mash { firstResume { id } } }',
+  });
+
   return (
     <div>
       <Head>
@@ -22,4 +29,4 @@ const IndexPage: NextPage = () => {
   );
 };
 
-export default IndexPage;
+export default withUrqlClient(createUrqlClient)(IndexPage);
