@@ -85,6 +85,19 @@ export type ResumeInput = {
 };
 
 
+export type CreateResumeMutationVariables = Exact<{
+  resumeInput: ResumeInput;
+}>;
+
+
+export type CreateResumeMutation = (
+  { __typename?: 'Mutation' }
+  & { createResume: (
+    { __typename?: 'Resume' }
+    & Pick<Resume, 'id'>
+  ) }
+);
+
 export type GetMashQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -103,6 +116,17 @@ export type GetMashQuery = (
 );
 
 
+export const CreateResumeDocument = gql`
+    mutation CreateResume($resumeInput: ResumeInput!) {
+  createResume(resumeInput: $resumeInput) {
+    id
+  }
+}
+    `;
+
+export function useCreateResumeMutation() {
+  return Urql.useMutation<CreateResumeMutation, CreateResumeMutationVariables>(CreateResumeDocument);
+};
 export const GetMashDocument = gql`
     query GetMash {
   mash {

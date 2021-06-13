@@ -1,0 +1,5 @@
+mutation CreateResume($resumeInput: ResumeInput!) {
+  createResume(resumeInput: $resumeInput) {
+    id
+  }
+}
