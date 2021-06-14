@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using HotChocolate;
-using Microsoft.AspNetCore.Authorization;
+using HotChocolate.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using ResumeMash.Api.Inputs;
 using ResumeMash.Core.Entities;

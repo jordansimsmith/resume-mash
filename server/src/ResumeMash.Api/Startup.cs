@@ -1,10 +1,13 @@
+using System.Security.Claims;
 using HotChocolate.Types;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using ResumeMash.Api.Resolvers;
 using ResumeMash.Api.Types;
 using ResumeMash.Core;
@@ -37,6 +40,20 @@ namespace ResumeMash.Api
                         .AllowAnyHeader();
                 });
             });
+
+            services
+                .AddAuthorization()
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = _configuration["Auth0:Authority"];
+                    options.Audience = _configuration["Auth0:Audience"];
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = ClaimTypes.NameIdentifier
+                    };
+                });
             
             services
                 .AddGraphQLServer()
@@ -45,6 +62,7 @@ namespace ResumeMash.Api
                 .AddType<UploadType>()
                 .AddType<ResumeType>()
                 .AddType<ResultType>()
+                .AddAuthorization()
                 .ModifyRequestOptions(options => { options.IncludeExceptionDetails = _env.IsDevelopment(); });
 
             services.AddHttpContextAccessor();
@@ -66,6 +84,9 @@ namespace ResumeMash.Api
             app.UseCors("CorsPolicy");
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapGraphQL(); });
 

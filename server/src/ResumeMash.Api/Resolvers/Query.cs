@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HotChocolate;
-using Microsoft.AspNetCore.Authorization;
+using HotChocolate.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using ResumeMash.Core.Entities;
 using ResumeMash.Core.Interfaces;
