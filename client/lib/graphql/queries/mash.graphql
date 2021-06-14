@@ -2,9 +2,11 @@ query GetMash {
   mash {
     firstResume {
       id
+      resumeFileUrl
     }
     secondResume {
       id
+      resumeFileUrl
     }
   }
 }

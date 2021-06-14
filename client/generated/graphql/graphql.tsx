@@ -21,6 +21,12 @@ export type Scalars = {
 
 
 
+export enum ApplyPolicy {
+  BeforeResolver = 'BEFORE_RESOLVER',
+  AfterResolver = 'AFTER_RESOLVER'
+}
+
+
 export type Mash = {
   __typename?: 'Mash';
   firstResume: Resume;
@@ -107,10 +113,10 @@ export type GetMashQuery = (
     { __typename?: 'Mash' }
     & { firstResume: (
       { __typename?: 'Resume' }
-      & Pick<Resume, 'id'>
+      & Pick<Resume, 'id' | 'resumeFileUrl'>
     ), secondResume: (
       { __typename?: 'Resume' }
-      & Pick<Resume, 'id'>
+      & Pick<Resume, 'id' | 'resumeFileUrl'>
     ) }
   ) }
 );
@@ -132,9 +138,11 @@ export const GetMashDocument = gql`
   mash {
     firstResume {
       id
+      resumeFileUrl
     }
     secondResume {
       id
+      resumeFileUrl
     }
   }
 }
