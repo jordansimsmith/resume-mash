@@ -1906,6 +1906,14 @@
     "@graphql-typed-document-node/core" "^3.1.0"
     wonka "^4.0.14"
 
+"@urql/exchange-auth@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@urql/exchange-auth/-/exchange-auth-0.1.3.tgz#abf3223803910aa1c08ae7311681d5145a10bf35"
+  integrity sha512-iwcDkDI3Nh2HhbOALly2K0hfswE6ZB/36Pr9AcEj2kxtDtTdOYwVio5+KuHXju8onD8f9jmYDveYRhZnWuKBsg==
+  dependencies:
+    "@urql/core" ">=2.1.0"
+    wonka "^4.0.14"
+
 "@urql/exchange-multipart-fetch@^0.1.12":
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/@urql/exchange-multipart-fetch/-/exchange-multipart-fetch-0.1.12.tgz#5b20e39eb6f213864f3ec98b2dfb7050cc881478"
