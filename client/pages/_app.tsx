@@ -1,7 +1,8 @@
 import { UserProvider } from '@auth0/nextjs-auth0';
-import { ChakraProvider, Flex } from '@chakra-ui/react';
+import { ChakraProvider, Flex, Box } from '@chakra-ui/react';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
+import { Footer } from '../components/Footer';
 import { HeaderBar } from '../components/HeaderBar';
 import '../styles/globals.css';
 
@@ -21,7 +22,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
           <HeaderBar />
 
-          <Component {...pageProps} />
+          <Box backgroundColor="gray.50" flexGrow={1}>
+            <Component {...pageProps} />
+
+            <Footer />
+          </Box>
         </Flex>
       </ChakraProvider>
     </UserProvider>
