@@ -5,7 +5,7 @@ import React from 'react';
 
 export const Footer: React.FC<{}> = () => {
   return (
-    <Center as="footer" color="gray.600" paddingY="40px">
+    <Center as="footer" color="gray.600" paddingY="20px">
       <Text>Jordan Sim-Smith 2021</Text>
       <Text mx="4px">·</Text>
       <Link href="https://github.com/jordansimsmith/resume-mash" isExternal>

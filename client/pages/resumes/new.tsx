@@ -1,3 +1,4 @@
+import { Container } from '@chakra-ui/react';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { NextPage } from 'next';
 import { withUrqlClient } from 'next-urql';
@@ -9,11 +10,9 @@ const NewResumePage: NextPage = () => {
   const [] = useCreateResumeMutation();
 
   return (
-    <div>
-      <main>
-        <ResumeUploadForm />
-      </main>
-    </div>
+    <Container as="main" maxWidth="container.xl">
+      <ResumeUploadForm />
+    </Container>
   );
 };
 

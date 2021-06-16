@@ -21,7 +21,7 @@ export const HeaderBar: React.FC<{}> = () => {
   const handleUpload = () => router.push('/resumes/new');
 
   return (
-    <Box backgroundColor="purple.100" padding="10px">
+    <Box backgroundColor="purple.100" padding="10px" as="header">
       <Container maxW="container.xl">
         <Wrap justify="space-between" spacing="0">
           <WrapItem>

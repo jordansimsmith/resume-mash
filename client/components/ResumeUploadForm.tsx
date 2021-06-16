@@ -75,6 +75,7 @@ export const ResumeUploadForm: React.FC<{}> = () => {
       padding="20px"
       margin="20px"
       borderRadius="md"
+      backgroundColor="white"
     >
       <form onSubmit={formik.handleSubmit}>
         <FormControl isInvalid={formik.errors.name && formik.touched.name}>
