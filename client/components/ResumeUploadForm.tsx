@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Box } from '@chakra-ui/layout';
-import { FormErrorMessage, useToast } from '@chakra-ui/react';
+import { Divider, FormErrorMessage, Heading, useToast } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useCreateResumeMutation } from '../generated/graphql/graphql';
@@ -77,8 +77,16 @@ export const ResumeUploadForm: React.FC<{}> = () => {
       borderRadius="md"
       backgroundColor="white"
     >
+      <Heading as="h3" size="md">
+        New Resume
+      </Heading>
+      <Divider marginY="15px" />
+
       <form onSubmit={formik.handleSubmit}>
-        <FormControl isInvalid={formik.errors.name && formik.touched.name}>
+        <FormControl
+          isInvalid={formik.errors.name && formik.touched.name}
+          marginTop="20px"
+        >
           <FormLabel>Resume Name</FormLabel>
           <Input
             name="name"
@@ -95,6 +103,7 @@ export const ResumeUploadForm: React.FC<{}> = () => {
 
         <FormControl
           isInvalid={!!(formik.errors.resumeFile && formik.touched.resumeFile)}
+          marginTop="20px"
         >
           <FormLabel>Resume File</FormLabel>
           <input
@@ -109,9 +118,11 @@ export const ResumeUploadForm: React.FC<{}> = () => {
         </FormControl>
 
         <Button
+          marginTop="40px"
           type="submit"
           colorScheme="purple"
           isLoading={formik.isSubmitting}
+          disabled={!formik.dirty}
         >
           Create Resume
         </Button>

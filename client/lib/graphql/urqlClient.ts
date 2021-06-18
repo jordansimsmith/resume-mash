@@ -25,7 +25,6 @@ export const createUrqlClient: NextUrqlClientConfig = (ssrExchange) => ({
         return null;
       },
       addAuthToOperation: ({ authState, operation }) => {
-        console.log(operation);
         const accessToken = (authState as AuthState)?.accessToken;
 
         if (!accessToken) {
