@@ -9,9 +9,10 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import React from 'react';
-import { Resume } from '../generated/graphql/graphql';
+import { Resume, useCreateResultMutation } from '../generated/graphql/graphql';
 
 interface CreateResultModalProps {
   isOpen: boolean;
@@ -26,6 +27,44 @@ export const CreateResultModal: React.FC<CreateResultModalProps> = ({
   winner,
   loser,
 }) => {
+  const [{ fetching }, createResult] = useCreateResultMutation();
+
+  const toast = useToast();
+
+  const handleSubmit = React.useCallback(async () => {
+    if (!winner || !loser) {
+      return;
+    }
+
+    const { error } = await createResult(
+      {
+        resultInput: { winnerId: Number(winner.id), loserId: Number(loser.id) },
+      },
+      { additionalTypenames: ['Mash'] },
+    );
+    onClose();
+
+    if (error) {
+      toast({
+        title: 'Error',
+        description: 'Your result could not be submitted at this time',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    // success
+    toast({
+      title: 'Result submitted!',
+      description: 'Thank you for reviewing these resumes',
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    });
+  }, [onClose, createResult, winner, loser, toast]);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -49,7 +88,13 @@ export const CreateResultModal: React.FC<CreateResultModalProps> = ({
             <Button colorScheme="purple" variant="ghost" onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme="purple">Submit</Button>
+            <Button
+              colorScheme="purple"
+              onClick={handleSubmit}
+              isLoading={fetching}
+            >
+              Submit
+            </Button>
           </ButtonGroup>
         </ModalFooter>
       </ModalContent>
