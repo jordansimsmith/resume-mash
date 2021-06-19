@@ -91,6 +91,19 @@ export type ResumeInput = {
 };
 
 
+export type CreateResultMutationVariables = Exact<{
+  resultInput: ResultInput;
+}>;
+
+
+export type CreateResultMutation = (
+  { __typename?: 'Mutation' }
+  & { createResult: (
+    { __typename?: 'Result' }
+    & Pick<Result, 'id'>
+  ) }
+);
+
 export type CreateResumeMutationVariables = Exact<{
   resumeInput: ResumeInput;
 }>;
@@ -113,15 +126,26 @@ export type GetMashQuery = (
     { __typename?: 'Mash' }
     & { firstResume: (
       { __typename?: 'Resume' }
-      & Pick<Resume, 'id' | 'resumeFileUrl'>
+      & Pick<Resume, 'id' | 'resumeFileUrl' | 'name'>
     ), secondResume: (
       { __typename?: 'Resume' }
-      & Pick<Resume, 'id' | 'resumeFileUrl'>
+      & Pick<Resume, 'id' | 'resumeFileUrl' | 'name'>
     ) }
   ) }
 );
 
 
+export const CreateResultDocument = gql`
+    mutation createResult($resultInput: ResultInput!) {
+  createResult(resultInput: $resultInput) {
+    id
+  }
+}
+    `;
+
+export function useCreateResultMutation() {
+  return Urql.useMutation<CreateResultMutation, CreateResultMutationVariables>(CreateResultDocument);
+};
 export const CreateResumeDocument = gql`
     mutation CreateResume($resumeInput: ResumeInput!) {
   createResume(resumeInput: $resumeInput) {
@@ -139,10 +163,12 @@ export const GetMashDocument = gql`
     firstResume {
       id
       resumeFileUrl
+      name
     }
     secondResume {
       id
       resumeFileUrl
+      name
     }
   }
 }

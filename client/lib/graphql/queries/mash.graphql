@@ -3,10 +3,12 @@ query GetMash {
     firstResume {
       id
       resumeFileUrl
+      name
     }
     secondResume {
       id
       resumeFileUrl
+      name
     }
   }
 }

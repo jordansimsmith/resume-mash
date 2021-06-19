@@ -9,6 +9,7 @@ interface ResumeViewerProps {
 
 export const ResumeViewer: React.FC<ResumeViewerProps> = ({
   resumeFileUrl,
+  onClick,
 }) => {
   return (
     <Box
@@ -20,6 +21,7 @@ export const ResumeViewer: React.FC<ResumeViewerProps> = ({
       _hover={{
         borderColor: 'purple.400',
       }}
+      onClick={onClick}
     >
       <PdfViewer fileUrl={resumeFileUrl} />
     </Box>

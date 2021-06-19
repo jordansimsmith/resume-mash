@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   Center,
@@ -9,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { withUrqlClient } from 'next-urql';
+import { CreateResultModal } from '../components/CreateResultModal';
 import { ResumeViewer } from '../components/ResumeViewer';
 import { useGetMashQuery } from '../generated/graphql/graphql';
 import { createUrqlClient } from '../lib/graphql/urqlClient';
@@ -17,6 +19,17 @@ const IndexPage: NextPage = () => {
   const [{ data, fetching }] = useGetMashQuery();
 
   const [isLargeScreen] = useMediaQuery('(min-width: 1000px)');
+
+  const [modalOpen, setModalOpen] = React.useState<boolean>(false);
+  const [winner, setWinner] = React.useState<'first' | 'second'>();
+
+  const handleResumeClick = React.useCallback(
+    (newWinner: 'first' | 'second') => () => {
+      setWinner(newWinner);
+      setModalOpen(true);
+    },
+    [],
+  );
 
   if (fetching) {
     return (
@@ -40,14 +53,25 @@ const IndexPage: NextPage = () => {
       <SimpleGrid gap="20px" columns={isLargeScreen ? 2 : 1}>
         <ResumeViewer
           resumeFileUrl={data.mash.firstResume.resumeFileUrl}
-          onClick={() => null}
+          onClick={handleResumeClick('first')}
         />
 
         <ResumeViewer
           resumeFileUrl={data.mash.secondResume.resumeFileUrl}
-          onClick={() => null}
+          onClick={handleResumeClick('second')}
         />
       </SimpleGrid>
+
+      <CreateResultModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        winner={
+          winner === 'first' ? data.mash.firstResume : data.mash.secondResume
+        }
+        loser={
+          winner === 'first' ? data.mash.secondResume : data.mash.firstResume
+        }
+      />
     </Container>
   );
 };
